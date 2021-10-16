@@ -1,0 +1,25 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "R básico aplicado a economia",
+      "description": "Curso básico de análise de dados sob demanda &mdash; Emanuella Camargo 2021\n",
+      "author": [
+        {
+          "name": "Henrique Costa, Ms.C.",
+          "url": "https://hcostax.netlify.app/"
+        }
+      ],
+      "date": "2021-10-14",
+      "contents": "\r\nOverview\r\nEste é o site para o mini curso sob demanda de duas semanas para R básico aplicado a economia. Neste curso, vou levá-la em um tour de como obter de dados para variáveis macroeconômicas usando R, e criar visualizações. Todas as aulas serão gravadas sob o seu consentimento, e serão disponibilizados por link secreto via YouTube, caso queira revisar o conteúdo. Este curso abordará:\r\nRevisão veloz e furiosa de econometria básica.\r\nProgramação básica com tidyverse.\r\nComo obter os dados macroeconômicos utilizandos o R.\r\nFluxos de trabalho orientada a projetos.\r\nComo desenvolver visualizações e seus estilos.\r\nComo comunicar os resultados.\r\nTópicos Especiais:Finanças com R\r\nCronograma\r\nDia 1\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nRevisão econometria básica\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nIntrodução à séries temporais\r\nDia 2\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nThe whole game\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nVisualize data\r\nDia 3\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nWrangle data, Pt. 1\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nWrangle data, Pt. 2\r\nDia 4\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nJoin data\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nTidy data\r\nDia 5\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nData types\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nImport data\r\nDia 6\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nDados macroeconômicos\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nPlots para dados macroeconômicos\r\nDia 7\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nFluxos de trabalho orientada a projetos\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nCriando o primeiro projeto\r\nDia 8\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nPersonalizando um cenário, Pt. 1\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nPersonalizando um cenário, Pt. 2\r\nDia 9\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nComunicando os resultados: relatório\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nComunicando os resultados: apresentação\r\nDia 10\r\nHorário\r\nAtividade\r\n20:30 - 20:50\r\nTópicos Especiais em Finanças com R: Analise de portfólio de ações\r\n20:50 - 21:00\r\n☕ Coffee break\r\n21:00 - 21:30\r\nTópicos Especiais em Finanças com R: tópicos em gestão de risco\r\nLicença\r\nObserve que todos os materiais são lançados com licença Creative Commons Attribution Share Alike 4.0 International.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-10-16T12:13:58-03:00"
+    },
+    {
+      "path": "LICENSE.html",
+      "author": [],
+      "contents": "\nLicense\nThis work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.\n\n\n\nThis is a human-readable summary of (and not a substitute for) the license. Please see https://creativecommons.org/licenses/by-sa/4.0/legalcode for the full legal text.\nYou are free to:\nShare—copy and redistribute the material in any medium or format\nRemix—remix, transform, and build upon the material for any purpose, even commercially.\nThe licensor cannot revoke these freedoms as long as you follow the license terms.\nUnder the following terms:\nAttribution—You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.\nShareAlike—If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.\nNo additional restrictions—You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.\nNotices:\nYou do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.\nNo warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.\n\n\n",
+      "last_modified": "2021-09-22T17:51:28-03:00"
+    }
+  ],
+  "collections": []
+}

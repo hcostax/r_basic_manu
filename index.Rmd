@@ -1,0 +1,143 @@
+---
+title: "R básico aplicado a economia"
+description: |
+  Curso básico de análise de dados sob demanda &mdash; Emanuella Camargo 2021
+site: distill::distill_website
+date: 2021-10-14
+author:
+- name: Henrique Costa, Ms.C.
+  url: https://hcostax.netlify.app/
+#  affiliation: Perfil público
+#  affiliation_url: https://rstudio.com
+  orcid_id: 0000-0003-4591-4044
+---
+
+## Overview
+
+Este é o site para o mini curso sob demanda de duas semanas para R básico aplicado a economia. Neste curso, vou levá-la em um tour de como obter de dados para variáveis macroeconômicas usando R, e criar visualizações. Todas as aulas serão gravadas sob o seu consentimento, e serão disponibilizados por link secreto via YouTube, caso queira revisar o conteúdo. Este curso abordará:
+
++ Revisão veloz e furiosa de econometria básica.
++ Programação básica com tidyverse.
++ Como obter os dados macroeconômicos utilizandos o R.
++ Fluxos de trabalho orientada a projetos.
++ Como desenvolver visualizações e seus estilos.
++ Como comunicar os resultados.
++ _Tópicos Especiais:Finanças com R_
+
+
+## Cronograma
+
+### Dia 1
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Revisão econometria básica   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Introdução à séries temporais  |
+
+
+### Dia 2
+
+| Horário       | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | The whole game   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Visualize data  |
+
+<!-- Prepare-se para o dia seguinte recapitulando o que aprendeu até agora: -->
+
+<!-- -   Complete este tutorial [aqui](https://minecr.shinyapps.io/dsbox-01-edibnb/) -->
+<!-- -   Complete `AE 02 - Bechdel + R Markdown` on RStudio Cloud [here](https://rstd.io/dsbox-cloud) -->
+
+### Dia 3
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Wrangle data, Pt. 1   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Wrangle data, Pt. 2   |
+
+<!-- -   Complete the tutorial on road traffic accidents [here](https://minecr.shinyapps.io/dsbox-02-accidents/) -->
+<!-- -   Complete the tutorial on college majors [here](https://minecr.shinyapps.io/dsbox-03-collegemajors/) -->
+
+### Dia 4
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Join data   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Tidy data   |
+
+<!-- -   Complete the tutorial on bike share data [here](https://minecr.shinyapps.io/dsbox-06-dcbikeshare/) -->
+
+### Dia 5
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Data types   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Import data   |
+
+
+### Dia 6
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Dados macroeconômicos   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Plots para dados macroeconômicos   |
+
+
+### Dia 7
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Fluxos de trabalho orientada a projetos   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Criando o primeiro projeto   |
+
+
+### Dia 8
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Personalizando um cenário, Pt. 1   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Personalizando um cenário, Pt. 2   |
+
+
+
+### Dia 9
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Comunicando os resultados: relatório   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Comunicando os resultados: apresentação  |
+
+
+### Dia 10
+
+| Horário          | Atividade                     |
+| :------------ | :--------------------------- |
+| 20:30 - 20:50 | Tópicos Especiais em Finanças com R: Analise de portfólio de ações   |
+| 20:50 - 21:00 | `r emo::ji("coffee")` Coffee break |
+| 21:00 - 21:30 | Tópicos Especiais em Finanças com R: tópicos em gestão de risco  |
+
+
+
+
+### Licença
+
+Observe que todos os materiais são lançados com licença [Creative Commons Attribution Share Alike 4.0 International](LICENSE.md). 
+
+
+
+<!-- + [01-rmd-anatomy](static/slides/00-econometrics/00-econometrics.html) -->
+
+<!-- + [02-output-tables](static/slides/02-output-tables.html) -->
+
+<!-- + [03-graphics](static/slides/03-graphics.html) -->
+
+<!-- + [04-data-workflows](static/slides/04-data-workflows.html) -->
+

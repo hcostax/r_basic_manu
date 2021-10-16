@@ -1,0 +1,28 @@
+name: "R Básico"
+title: "R Básico"
+description: |
+  Curso básico de análise de dados sob demanda / Emanuella Camargo 2021
+output_dir: "_site"
+creative_commons: CC BY-SA
+#repository_url: https://github.com/apreshill/rmd4pharma
+output: distill::distill_article
+navbar:
+  # right:
+  #   - text: "Slides"
+  #     menu:
+  #       - text: "01: R Markdown Anatomy"
+  #         href: static/slides/01-rmd-anatomy.html
+  #       - text: "---"
+  #       - text: "02: Outputs & Tables"
+  #         href: static/slides/02-output-tables.html
+  #       - text: "---"
+  #       - text: "03: Graphics"
+  #         href: static/slides/03-graphics.html
+  #       - text: "---"
+  #       - text: "04: Data & Workflows"
+  #         href: static/slides/04-data-workflows.html
+  #   - icon: fas fa-cloud
+  #     href: https://rstd.io/rmd4pharma-cloud
+  #   - icon: fab fa-github
+  #     href: https://github.com/apreshill/rmd4pharma
+  # 

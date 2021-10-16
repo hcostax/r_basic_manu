@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data &amp; Workflows</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alison Hill" />
+    <meta name="author" content="Thomas Mock" />
+    <meta name="date" content="2020-10-07" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/my-theme.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/my-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+
+class: title-slide, center, middle
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #ffffffcc;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#3b4245;"&gt;04&lt;/strong&gt;
+&lt;/span&gt; 
+
+# Data &amp; Workflows
+
+## R Markdown for Pharma
+
+### Alison Hill, Thomas Mock &amp;#183; RStudio
+
+#### [https://rmd4pharma.netlify.app//](https://https://rmd4pharma.netlify.app//)
+
+---
+
+class: middle, center
+
+# &lt;i class="fas fa-cloud"&gt;&lt;/i&gt;
+
+# Go here and log in (free):
+
+http://rstd.io/rmd4pharma-cloud
+
+---
+class: middle, center, inverse
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #fff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#2f5275;"&gt;1 &lt;/strong&gt;
+&lt;/span&gt; 
+
+--
+
+# Parameters
+
+---
+class: left, top
+
+### Knit with Parameters
+
+.tiny[
+
+````
+---
+title: "Penguins"
+output: html_document
+params:
+  species: Adelie
+---
+
+```{r setup, include = FALSE}
+library(tidyverse) 
+smaller &lt;- palmerpenguins::penguins %&gt;% 
+  filter(species == params$species,
+         !is.na(body_mass_g))
+```
+
+# Penguins
+`r nrow(palmerpenguins::penguins) - nrow(smaller)` penguins are classified as `r params$species`.
+
+```{r, echo = FALSE, message = FALSE}
+smaller %&gt;%
+  ggplot(aes(x = body_mass_g, y = flipper_length_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = params$species)
+```
+
+````
+]
+
+---
+
+![](images/penguins.png)
+
+
+---
+class: middle, center, inverse
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #fff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#2f5275;"&gt;2 &lt;/strong&gt;
+&lt;/span&gt; 
+
+--
+
+# Command Line
+
+
+---
+class: left, top
+
+### `rmarkdown::render()`
+
+
+```r
+library(rmarkdown) # needs to be loaded first
+render("rmarkdown-report.Rmd")
+```
+
+--
+
+Now that was easy! But why would you want to use `render` rather than just clicking `knit`?
+
+--
+
+How about running a batch of RMDs?  
++ a report  
++ a safety document  
++ a slide deck  
++ or a full website  
+
+--
+
+Run for each drug of interest *all at once*!
+
+---
+
+layout: true
+
+&lt;div class="my-footer"&gt;&lt;span&gt;https://rstd.io/rmd4pharma-cloud&lt;/span&gt;&lt;/div&gt;
+
+
+---
+class: top, left
+
+# Render loops
+
+--
+
+
+```r
+# the setup
+unique_species &lt;- unique(palmerpenguins::penguins$species)
+unique_species
+#&gt; [1] Adelie    Gentoo    Chinstrap
+#&gt; Levels: Adelie Chinstrap Gentoo
+```
+
+--
+
+
+```r
+# the loop
+for(species in unique_species){
+  rmarkdown::render(
+    "penguin-report.Rmd",
+    params = list(species = species)
+  )
+}
+```
+
+#### &lt;i class="fas fa-smoking-ban"&gt;&lt;/i&gt; psst...the wrong way - but what's wrong?  
+
+--
+
+* What's the name of the output report?
+
+---
+class: top, left
+
+
+### We need two things
+
+For the `rmarkdown::render()` function to work the way we want:  
+1. The list of species -&gt; `params` 
+2. The name of each report -&gt; `output_file`  
+
+We could do this with a loop, but let's start **purrr**ing...
+
+---
+class: middle, center
+
+&gt; "Of course *someone* has to write **loops**.  
+&gt; It doesn't have to be *you*.  
+&gt; `-` Jenny Bryan
+
+---
+class: middle, center
+
+![](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/map_frosting.png)
+
+---
+class: middle, center
+
+![](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/map2_cupcakes.png)
+
+
+---
+class: top, left
+
+### Rendering multiple reports
+
+
+```r
+# the setup
+unique_species &lt;- unique(palmerpenguins::penguins$species)
+
+# the function
+penguin_render &lt;- function(species){
+  rmarkdown::render(
+    "penguin-report.Rmd",
+    output_file = paste0(species, "-report.html"),
+    params = list(species = species)
+  )
+}
+
+# create the reports
+purrr::walk(unique_species, penguin_render)
+```
+
+
+---
+class: your-turn
+
+# Your turn
+
+Use this format to create separate site reports for each of the 13 sites in our `mockdata`. Note that there are two main files:  
+- `project/analysis/R/parameterized-rmd.R` -- **Skeleton code**  
+- `project/analysis/reports/site-report.Rmd` -- **Actual report**  
+
+
+```r
+# the setup
+unique_species &lt;- unique(palmerpenguins::penguins$species)
+
+# the function
+penguin_render &lt;- function(species){
+  rmarkdown::render(
+    "penguin-report.Rmd",
+    output_file = paste0(species, "-report.html"),
+    params = list(species = species)
+  )
+}
+
+# create the reports
+purrr::walk(unique_species, penguin_render)
+```
+
+---
+class: middle, center, inverse
+
+&lt;span class="fa-stack fa-4x"&gt;
+  &lt;i class="fa fa-circle fa-stack-2x" style="color: #fff;"&gt;&lt;/i&gt;
+  &lt;strong class="fa-stack-1x" style="color:#2f5275;"&gt;3 &lt;/strong&gt;
+&lt;/span&gt; 
+
+--
+
+# Reference external R code
+
+---
+class: top, left
+
+### Entire .R files
+
+`source()` will allow you to read in entire .R files, and is commonly used to *source* external R functions.
+
+--
+
+### Chunks of .R files
+
+Adding `## ----` and a name to read chunks by name with `knitr::read_chunk()`  
+
+
+```r
+## ---- smaller-penguins
+smaller &lt;- penguins %&gt;%
+  filter(
+   species == "Adelie",
+   !is.na(body_mass_g)
+   )
+## ---- plot-penguins
+smaller %&gt;%
+ ggplot(aes(body_mass_g)) +
+ geom_histogram(binwidth = 100)
+```
+
+
+---
+class: top, left
+
+.pull-left[
+### Parent R Markdown
+
+````
+---
+title: "Penguins"
+date: 2020-08-11
+output: html_document
+---
+```{r setup, include = FALSE}
+library(tidyverse)
+library(palmerpenguins)
+```
+```{r, child=c(“adelie-report.Rmd”)}
+```
+
+````
+
+]
+--
+
+.pull-right[
+### Child R Markdown  
+`adelie-report.Rmd`  
+
+````
+---
+output: html_document
+---
+```{r, echo = FALSE}
+smaller &lt;- penguins %&gt;%
+ filter(species == "Adelie",
+ !is.na(body_mass_g))
+```
+# Penguins
+`r nrow(penguins) - nrow(smaller)` penguins 
+are classified as `r params$species`.
+```{r, echo = FALSE}
+smaller %&gt;%
+ ggplot(aes(body_mass_g)) +
+ geom_histogram(binwidth = 100)
+```
+
+````
+]
+
+
+---
+
+## Conditional Child Documents
+
+Add specific chunks if conditions met!
+
+````
+---
+title: "Drug Safety and Response"
+output: html_document
+---
+```{r setup, include = FALSE}
+library(tidyverse)
+drug_data &lt;- read_csv("drug-data.csv)
+
+pass_fail &lt;- summarize(drug_data, mean = mean(toxicity_param))
+```
+
+```{r, child=if (pass_fail &gt;= 1.5) “safe-drug-addendum.Rmd”}
+```
+
+# Dose Response
+```{r}
+ggplot(drug_data, aes(x = drug_cocn, y = drug_response)) +
+ geom_point() +
+ geom_smooth()
+```
+
+
+````
+
+---
+class: left, top
+
+### Links
+
++ [Parameterized Reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html)  
++ [Parameterized Lesson](https://rmarkdown.rstudio.com/lesson-6.html)  
++ [RMarkdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)  
++ [RMarkdown Definitive Guide](https://bookdown.org/yihui/rmarkdown/)  
+
+---
+class: inverse, middle, center
+
+# Thank you!
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "dracula",
+"highlightLanguage": ["r", "yaml", "markdown"],
+"slideNumberFormat": "",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
